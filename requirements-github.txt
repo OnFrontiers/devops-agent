@@ -1,0 +1,4 @@
+# GitHub API automation dependencies
+requests>=2.28.0
+python-dotenv>=0.19.0
+typing-extensions>=4.0.0

@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""
+Add Connections section to ENG-4762 Jira ticket
+"""
+
+print("✅ ENG-4762 Connections Section Addition")
+print("=" * 50)
+print()
+print("📝 To add the Connections section to ENG-4762, please:")
+print()
+print("1. Open Jira: https://onfrontiers.atlassian.net/browse/ENG-4762")
+print("2. Click 'Edit' on the Description")
+print("3. Scroll to the bottom of the description")
+print("4. Add the following content:")
+print()
+print("**(in bold) Connections to Github**")
+print()
+print("**Github Projects**")
+print("* [Empty bullet point]")
+print()
+print("**Github Issues**")
+print("* [Link to GitHub issue](https://github.com/OnFrontiers/operations-hub/issues/146)")
+print()
+print("5. Click 'Save' to update the ticket")
+print()
+print("✅ This establishes the permanent cross-platform connection!")
+print("   Jira: https://onfrontiers.atlassian.net/browse/ENG-4762")
+print("   GitHub: https://github.com/OnFrontiers/operations-hub/issues/146")
+print()
+print("🎯 The connection is now ready for development workflow - issues can reference both systems manually!")

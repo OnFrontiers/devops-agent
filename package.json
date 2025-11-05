@@ -1,0 +1,21 @@
+{
+  "name": "devops-agent",
+  "version": "1.0.0",
+  "description": "Local Jira automation app for reading and writing tickets",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": ["jira", "automation", "api"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "templateName": "story-template",
+  "sourceTicket": "ENG-4657",
+  "issueType": "Story",
+  "fields": {
+    "summary": "Migrate consultations operations out of Hubspot",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Background",
+              "marks": [
+                {
+                  "type": "strong"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "bulletList",
+          "content": [
+            {
+              "type": "listItem",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "tba"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Acceptance Criteria",
+              "marks": [
+                {
+                  "type": "strong"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "orderedList",
+          "attrs": {
+            "order": 1
+          },
+          "content": [
+            {
+              "type": "listItem",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": " "
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Technical Design",
+              "marks": [
+                {
+                  "type": "strong"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "..."
+            }
+          ]
+        }
+      ]
+    },
+    "priority": {
+      "self": "https://onfrontiers.atlassian.net/rest/api/3/priority/3",
+      "iconUrl": "https://onfrontiers.atlassian.net/images/icons/priorities/medium.svg",
+      "name": "2 - Medium",
+      "id": "3"
+    },
+    "labels": [
+      "hubspot"
+    ],
+    "components": [],
+    "fixVersions": []
+  },
+  "createdAt": "2025-09-05T17:49:46.294Z",
+  "notes": "Template created from ENG-4657: Migrate consultations operations out of Hubspot"
+}
