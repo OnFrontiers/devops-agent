@@ -24,7 +24,8 @@ When creating tickets, **always ask which space/project the ticket belongs to** 
 ### Ticket Creation Rules
 - **Space Selection**: Always prompt user to choose from the 3 project spaces above
 - **Stage Selection**: Ask user which stage the ticket should be created in (defaults to "Definition")
-- **User Assignment**: No default assignee - always double-check with user before assigning
+- **User Assignment**: No default assignee - always double-check with user before assigning. Don't assign everything to Enio - it's fine to add as reporter, but leave assignee unassigned unless explicitly requested
+- **Hyperlinks**: When adding URLs in Jira descriptions, use proper hyperlink format instead of plain text
 - **Templates**: Use agnostic templates that work across all spaces (no hardcoded labels)
 - **Labels**: Apply space-appropriate labels automatically based on selection
 

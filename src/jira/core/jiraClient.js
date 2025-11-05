@@ -75,12 +75,14 @@ class JiraClient {
   async searchIssues(jql, startAt = 0, maxResults = 50, fields = null) {
     try {
       const defaultFields = ['summary', 'status', 'assignee', 'description', 'priority', 'issuetype'];
-      const response = await this.client.post('/search', {
+      const params = {
         jql,
         startAt,
         maxResults,
-        fields: fields || defaultFields
-      });
+        fields: (fields || defaultFields).join(',')
+      };
+
+      const response = await this.client.get('/search/jql', { params });
       return response.data;
     } catch (error) {
       console.error(`Error searching issues:`, error.response?.data || error.message);
