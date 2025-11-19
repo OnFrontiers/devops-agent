@@ -5,6 +5,8 @@
   "priority": { "name": "1 - High" },
   "status": "Discovery",
   "assignee": "Unassigned",
+  "components": [],
+  "fixVersions": [],
   "description": {
     "type": "doc",
     "version": 1,

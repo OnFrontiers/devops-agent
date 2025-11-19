@@ -1,4 +1,5 @@
 import JiraClient from '../core/jiraClient.js';
+import pickComponents from '../core/prompts/componentsPrompt.js';
 
 async function createSearchImprovementEpic() {
   try {
@@ -111,7 +112,13 @@ async function createSearchImprovementEpic() {
     console.log(`   Status: Discovery (default)`);
     console.log(`   Assignee: Unassigned`);
     console.log(`   Related to: ENG-4501 (Improve document search relevancy)`);
-
+ 
+    // Confirm components to add on creation (interactive or via flags/env)
+    const projectKey = process.env.JIRA_PROJECT_KEY || 'ENG';
+    const components = await pickComponents(projectKey);
+    epicData.components = components;
+    console.log(`   Components: ${components && components.length ? components.map(c => c.id).join(', ') : 'None'}`);
+ 
     // Use createProductDevelopmentTicket since this is product-related
     const epicResult = await jira.createProductDevelopmentTicket(epicData);
 

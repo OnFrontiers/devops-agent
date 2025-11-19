@@ -46,16 +46,16 @@ If you're setting up this repository from GitHub for the first time:
 2. **Set up SSH keys for GitHub** (recommended):
    ```bash
    # Generate a new SSH key
-   ssh-keygen -t ed25519 -C "your-email@example.com"
+   ssh-keygen -t ed25519_onfrontiers -C "your-email@example.com"
 
    # Start the SSH agent
    eval "$(ssh-agent -s)"
 
    # Add your SSH key to the agent
-   ssh-add ~/.ssh/id_ed25519
+   ssh-add ~/.ssh/id_ed25519_onfrontiers
 
    # Copy the public key to add to GitHub
-   cat ~/.ssh/id_ed25519.pub
+   cat ~/.ssh/id_ed25519_onfrontiers.pub
    ```
    - Go to GitHub.com → Settings → SSH and GPG keys
    - Click "New SSH key"
@@ -129,6 +129,40 @@ Templates are stored in `/templates/` directory:
 ### Available Templates by Issue Type
 - **Story/Epic/Task**: Background → Acceptance Criteria → Technical Design
 - **Bug**: Description of the bug → Environment questions → Sample Record → Steps to reproduce → Intended Result
+
+## Component selection on ticket creation
+
+When creating tickets, the tool will prompt you to select one or more Jira components for the target project and ask for confirmation.
+
+Interactive
+- You will see a numbered list of available components and can select multiple by entering comma-separated numbers.
+- A confirmation step shows your selection and requires Y/N to proceed.
+
+Non-interactive and CI
+- Provide components by name using one of:
+  - --components "Name1,Name2"
+  - COMPONENTS="Name1,Name2" (environment variable)
+- To skip components explicitly, use:
+  - --no-components
+  - NO_COMPONENTS=1
+- If running in a non-interactive (non-TTY) environment without explicit components or --no-components, the script will fail with a helpful message.
+
+Affected commands/scripts
+- Menu: npm start → option "Create cost-optimization ticket"
+- node src/jira/product-dev/createProductDevelopmentTicket.js
+- node src/jira/product-dev/createTestProductTicket.js
+- node src/jira/tickets/createAuthStory.js
+- node src/jira/tickets/createServiceAccountTicket.js
+- node src/jira/tickets/createSearchImprovementEpic.js
+
+Templates
+- templates/epic-template.json now includes "components": [] and "fixVersions": []
+- story and bug templates already include "components" and "fixVersions"
+
+Examples
+- node src/jira/product-dev/createProductDevelopmentTicket.js --components "Search,Operations Hub"
+- COMPONENTS="Search,Operations Hub" node src/jira/tickets/createAuthStory.js
+- node src/jira/tickets/createServiceAccountTicket.js --no-components
 
 ## Common JQL Examples
 

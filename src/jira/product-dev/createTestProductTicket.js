@@ -1,4 +1,5 @@
 import JiraClient from '../core/jiraClient.js';
+import pickComponents from '../core/prompts/componentsPrompt.js';
 
 async function createTestProductTicket() {
   try {
@@ -6,11 +7,15 @@ async function createTestProductTicket() {
     console.log('🎫 Creating a test product-development ticket...\n');
     
     // Sample ticket data as requested
+    // Confirm components to add on creation (interactive or via flags/env)
+    const projectKey = process.env.JIRA_PROJECT_KEY || 'ENG';
+    const components = await pickComponents(projectKey);
     const ticketData = {
       summary: 'Test Product Development Ticket',
       issueType: 'Story',
       additionalLabels: ['product-development'], // Only product-development, NOT cost-reduction
-      priority: { name: '2 - Medium' }
+      priority: { name: '2 - Medium' },
+      components
     };
     
     console.log('🔧 Creating product-development ticket...');
@@ -20,6 +25,7 @@ async function createTestProductTicket() {
     console.log(`   Priority: ${ticketData.priority.name}`);
     console.log(`   Type: ${ticketData.issueType}`);
     console.log(`   Template: Background → Acceptance Criteria → Technical Design`);
+    console.log(`   Components: ${components && components.length ? components.map(c => c.id).join(', ') : 'None'}`);
     
     const result = await jira.createProductDevelopmentTicket(ticketData);
     

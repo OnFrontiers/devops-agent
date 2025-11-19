@@ -1,4 +1,5 @@
 import JiraClient from '../core/jiraClient.js';
+import pickComponents from '../core/prompts/componentsPrompt.js';
 
 async function createAuthStory() {
   try {
@@ -21,6 +22,12 @@ async function createAuthStory() {
     console.log(`   Assignee: ${process.env.JIRA_EMAIL}`);
     console.log(`   Parent: ENG-4655 (Operations tooling cuts)`);
     console.log(`   Status: Will be set to In Progress`);
+    
+    // Confirm components to add on creation (interactive or via flags/env)
+    const projectKey = process.env.JIRA_PROJECT_KEY || 'ENG';
+    const components = await pickComponents(projectKey);
+    storyData.components = components;
+    console.log(`   Components: ${components && components.length ? components.map(c => c.id).join(', ') : 'None'}`);
     
     const result = await jira.createCostOptimizationTicket(storyData);
     

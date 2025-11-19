@@ -1,5 +1,6 @@
 import JiraClient from '../core/jiraClient.js';
 import readline from 'readline';
+import pickComponents from '../core/prompts/componentsPrompt.js';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -23,16 +24,21 @@ async function createProductDevelopmentTicket() {
     const additionalLabels = await askQuestion('Enter additional labels (comma-separated) [optional]: ');
     const priority = await askQuestion('Enter priority (1 - High/2 - Medium/3 - Low) [default: 2 - Medium]: ') || '2 - Medium';
     
-    // Parse additional labels and add product-development
-    const labelArray = additionalLabels ? additionalLabels.split(',').map(label => label.trim()) : [];
-    labelArray.unshift('product-development'); // Add product-development as first label
-    
-    // Create ticket data
+  // Parse additional labels and add product-development
+  const labelArray = additionalLabels ? additionalLabels.split(',').map(label => label.trim()) : [];
+  labelArray.unshift('product-development'); // Add product-development as first label
+
+  // Confirm components to add on creation (interactive or via flags/env)
+  const projectKey = process.env.JIRA_PROJECT_KEY || 'ENG';
+  const components = await pickComponents(projectKey);
+  
+  // Create ticket data
     const ticketData = {
       summary,
       issueType,
       additionalLabels: labelArray,
-      priority: { name: priority }
+      priority: { name: priority },
+      components
     };
     
     console.log('\n🔧 Creating product-development ticket...');
@@ -41,6 +47,7 @@ async function createProductDevelopmentTicket() {
     console.log(`   Labels: ${labelArray.join(', ')}`);
     console.log(`   Priority: ${priority}`);
     console.log(`   Type: ${issueType}`);
+    console.log(`   Components: ${components && components.length ? components.map(c => c.id).join(', ') : 'None'}`);
     
     const result = await jira.createProductDevelopmentTicket(ticketData);
     

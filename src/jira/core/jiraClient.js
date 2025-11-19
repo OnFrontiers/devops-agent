@@ -325,7 +325,8 @@ class JiraClient {
           issuetype: { name: issueData.issueType || 'Story' },
           assignee: { accountId: currentUser.accountId },
           labels: ['cost-reduction', ...(issueData.additionalLabels || [])],
-          priority: issueData.priority || { name: '2 - Medium' }
+          priority: issueData.priority || { name: '2 - Medium' },
+          components: (issueData.components && issueData.components.length) ? issueData.components : undefined
         }
       };
 
@@ -351,7 +352,8 @@ class JiraClient {
           issuetype: { name: issueData.issueType || 'Story' },
           assignee: { accountId: currentUser.accountId },
           labels: issueData.additionalLabels || ['product-development'],
-          priority: issueData.priority || { name: '2 - Medium' }
+          priority: issueData.priority || { name: '2 - Medium' },
+          components: (issueData.components && issueData.components.length) ? issueData.components : undefined
         }
       };
 
@@ -377,7 +379,8 @@ class JiraClient {
           issuetype: { name: issueData.issueType || 'Story' },
           assignee: { accountId: currentUser.accountId },
           labels: ['consultation', 'product-development', ...(issueData.additionalLabels || [])],
-          priority: issueData.priority || { name: '2 - Medium' }
+          priority: issueData.priority || { name: '2 - Medium' },
+          components: (issueData.components && issueData.components.length) ? issueData.components : undefined
         }
       };
 
@@ -389,12 +392,123 @@ class JiraClient {
     }
   }
 
+  async createOperationsHubTicket(issueData) {
+    try {
+      // Get current user info
+      const currentUser = await this.getCurrentUser();
+
+      // Operations Hub ticket structure (excludes cost-reduction label, separate from cost-optimization)
+      const ticketData = {
+        fields: {
+          project: { key: process.env.JIRA_PROJECT_KEY || 'ENG' },
+          summary: issueData.summary,
+          description: issueData.description || this.getTemplateDescription(issueData.issueType || 'Story'),
+          issuetype: { name: issueData.issueType || 'Story' },
+          assignee: issueData.assignee ? { accountId: issueData.assignee.accountId } : null, // No default assignee for Operations Hub
+          labels: ['operations-hub', ...(issueData.additionalLabels || [])],
+          priority: issueData.priority || { name: '2 - Medium' },
+          components: (issueData.components && issueData.components.length) ? issueData.components : undefined
+        }
+      };
+
+      const response = await this.client.post('/issue', ticketData);
+      return response.data;
+    } catch (error) {
+      console.error(`Error creating operations hub ticket:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
+
   async deleteIssue(issueKey) {
     try {
       const response = await this.client.delete(`/issue/${issueKey}`);
       return response.data;
     } catch (error) {
       console.error(`Error deleting issue ${issueKey}:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  // Agile API methods for boards and filters
+  async getBoards() {
+    try {
+      const agileClient = axios.create({
+        baseURL: `${this.baseURL}/rest/agile/1.0`,
+        auth: {
+          username: this.email,
+          password: this.apiToken
+        },
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const response = await agileClient.get('/board');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching boards:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async getBoardFilters(boardId) {
+    try {
+      const agileClient = axios.create({
+        baseURL: `${this.baseURL}/rest/agile/1.0`,
+        auth: {
+          username: this.email,
+          password: this.apiToken
+        },
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Try different endpoints for quick filters
+      try {
+        const response = await agileClient.get(`/board/${boardId}/filter`);
+        return response.data;
+      } catch (filterError) {
+        // If quick filters endpoint fails, try board configuration
+        console.log('Quick filters endpoint not available, checking board configuration...');
+        const configResponse = await agileClient.get(`/board/${boardId}/configuration`);
+        return { values: configResponse.data.quickFilter || [] };
+      }
+    } catch (error) {
+      console.error(`Error fetching filters for board ${boardId}:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async getBoardConfiguration(boardId) {
+    try {
+      const agileClient = axios.create({
+        baseURL: `${this.baseURL}/rest/agile/1.0`,
+        auth: {
+          username: this.email,
+          password: this.apiToken
+        },
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const response = await agileClient.get(`/board/${boardId}/configuration`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching board configuration for ${boardId}:`, error.response?.data || error.message);
+      throw error;
+    }
+  }
+  async listProjectComponents(projectKey) {
+    try {
+      const response = await this.client.get(`/project/${projectKey}/components`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error listing components for project ${projectKey}:`, error.response?.data || error.message);
       throw error;
     }
   }

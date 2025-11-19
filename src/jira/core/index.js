@@ -1,6 +1,7 @@
 import JiraClient from './jiraClient.js';
 import queryCostOptimization from '../cost-optimization/myCostOptimization.js';
 import readline from 'readline';
+import pickComponents from './prompts/componentsPrompt.js';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -159,15 +160,21 @@ class JiraAutomation {
     const priority = await this.askQuestion('Enter priority (1 - High/2 - Medium/3 - Low) [default: 2 - Medium]: ') || '2 - Medium';
     
     const labelArray = additionalLabels ? additionalLabels.split(',').map(label => label.trim()) : [];
-    
+
+    // Confirm components to add on creation (interactive or via flags/env)
+    const projectKey = process.env.JIRA_PROJECT_KEY || 'ENG';
+    const components = await pickComponents(projectKey);
+
     const ticketData = {
       summary,
       issueType,
       additionalLabels: labelArray,
-      priority: { name: priority }
+      priority: { name: priority },
+      components
     };
     
     console.log('\n🔧 Creating ticket with default cost-optimization settings...');
+    console.log(`   Components: ${components && components.length ? components.map(c => c.id).join(', ') : 'None'}`);
     
     try {
       const result = await this.jira.createCostOptimizationTicket(ticketData);
