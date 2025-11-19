@@ -1,4 +1,14 @@
-# Jira Automation Tool - Multi-Repository Ticket Creation Hub
+# DevOps Agent - Organization Baseline & Ticket Automation
+
+This repository serves as the **organization baseline** for OnFrontiers development standards and also provides a local Node.js application for creating and managing Jira tickets across multiple repositories.
+
+## Organization Baseline
+
+- **Global Rules**: See [GLOBAL_RULES.md](./GLOBAL_RULES.md) for organization-wide development standards, tool integration, and repository structure conventions
+- **Bootstrap Script**: Run `bash scripts/bootstrap-global-rules.sh` to set up team member environment and verify project configurations
+- **For New Projects**: Reference the Global Rules in your project's `CLAUDE.md` to inherit organization standards
+
+## Jira Automation Tool
 
 A local Node.js application for creating and managing tickets across multiple OnFrontiers repositories (Engineering, Product Development, Operations Hub) using the Jira REST API.
 
