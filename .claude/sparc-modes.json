@@ -1,0 +1,41 @@
+{
+  "customModes": [
+    {
+      "id": "specification",
+      "name": "Specification Phase",
+      "description": "Gather requirements and define the problem space",
+      "order": 1,
+      "template": "Analyze the requirements and create detailed specifications for this task."
+    },
+    {
+      "id": "pseudocode",
+      "name": "Pseudocode Phase",
+      "description": "Design the solution in pseudocode before implementation",
+      "order": 2,
+      "template": "Convert specifications into pseudocode that outlines the solution architecture."
+    },
+    {
+      "id": "architecture",
+      "name": "Architecture Phase",
+      "description": "Design system architecture and technical approach",
+      "order": 3,
+      "template": "Define the technical architecture, patterns, and high-level design decisions."
+    },
+    {
+      "id": "refinement",
+      "name": "Refinement (TDD) Phase",
+      "description": "Write tests first, then implement using TDD approach",
+      "order": 4,
+      "template": "Create comprehensive tests, then implement features using test-driven development."
+    },
+    {
+      "id": "completion",
+      "name": "Completion Phase",
+      "description": "Final implementation, testing, and documentation",
+      "order": 5,
+      "template": "Complete implementation, run tests, update documentation, and prepare for deployment."
+    }
+  ],
+  "version": "1.0.0",
+  "description": "SPARC methodology configuration for devops-agent repository"
+}

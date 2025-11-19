@@ -46,7 +46,24 @@ jspm_packages/
 # IDE files
 .vscode/
 .idea/
+# Claude Code workspace (selective tracking)
 .claude/
+!.claude/
+!.claude/settings.json
+!.claude/agents/
+!.claude/agents/**
+!.claude/commands/
+!.claude/commands/**
+!.claude/skills/
+!.claude/skills/**
+!.claude/helpers/
+!.claude/helpers/**
+!.claude/statusline-command.sh
+# Swarm and hive-mind orchestration
+!.swarm/
+!.swarm/**
+!.hive-mind/
+!.hive-mind/**
 *.swp
 *.swo
 

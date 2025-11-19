@@ -6,7 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "node --watch src/index.js"
+    "dev": "node --watch src/index.js",
+    "sparc": "npx claude-flow@alpha sparc modes",
+    "sparc:run": "npx claude-flow@alpha sparc run",
+    "sparc:tdd": "npx claude-flow@alpha sparc tdd",
+    "sparc:pipeline": "npx claude-flow@alpha sparc pipeline",
+    "claude-flow": "npx claude-flow@alpha init --topology mesh --max-agents 8 --force && npx claude-flow@alpha memory init --namespace default && echo '✅ Claude Flow initialized!'"
   },
   "keywords": ["jira", "automation", "api"],
   "author": "",
@@ -16,6 +21,7 @@
     "dotenv": "^16.3.0"
   },
   "devDependencies": {
+    "claude-flow": "latest",
     "nodemon": "^3.0.0"
   }
 }

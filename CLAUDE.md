@@ -286,3 +286,86 @@ node src/checkENG4757.js
 
 # Story points based on code analysis
 node src/addStoryPointsToTicket.js
+
+## Claude Flow Setup for Repository Template
+
+This repository is configured as a Claude Flow template for multi-agent automation. The template includes swarm coordination, hive-mind agents, and SPARC methodology workflows designed for team distribution.
+
+### Installation for Others
+
+When cloning this repository:
+
+```bash
+git clone https://github.com/OnFrontiers/devops-agent.git
+cd devops-agent
+npm install        # Automatically installs claude-flow
+```
+
+The `npm install` command installs `claude-flow` as a dev dependency. No separate installation needed.
+
+### What's Included
+
+Core configuration files (tracked in git):
+- `.claude/settings.json` - Claude Code configuration with hooks, permissions, memory namespaces
+- `.claude/agents/` - 30+ agent definitions organized by function (core, swarm, hive-mind, sparc, templates)
+- `.claude/commands/` - 45+ slash commands for multi-agent workflows (/swarm, /sparc, /hive-mind, /coordination)
+- `.claude/skills/` - Reusable workflow skills (swarm-orchestration, hive-mind-advanced, flow-nexus-swarm)
+- `.claude/helpers/` - Utility scripts for setup and checkpoint management
+- `.swarm/` - Swarm orchestration runtime state
+- `.hive-mind/` - Hive-mind coordination runtime state
+
+Local-only files (not tracked):
+- `.claude/settings.local.json` - Local configuration overrides
+- `.claude/checkpoints/` - Session checkpoints
+- `memory/` - Session memory and execution logs
+
+### Configuration Details
+
+Memory namespaces configured:
+- `aws-usage` - AWS CLI commands and SSO patterns
+- `npm-node` - Node.js and npm patterns
+- `database` - PostgreSQL and connection patterns
+- `common-mistakes` - Recurring errors and solutions
+- `project-context` - DevOps agent specifics
+
+Pre/post tool hooks enabled for:
+- Command validation and resource preparation
+- File editing with agent assignment and context loading
+- Result tracking and memory updates on completion
+
+### Available Commands
+
+In Claude Code, use slash commands for multi-agent workflows:
+
+- `/swarm` - View swarm modes and status
+- `/swarm-spawn` - Launch parallel agent swarms (up to 8 concurrent)
+- `/sparc` - SPARC methodology workflows
+- `/hive-mind` - Hive-mind multi-agent coordination
+- `/swarm-init` - Initialize swarm topology
+- Additional commands in `.claude/commands/` subdirectories
+
+### npm Scripts
+
+```bash
+npm run sparc              # View SPARC modes
+npm run sparc:run          # Run standard SPARC flow
+npm run sparc:tdd          # Test-driven development mode
+npm run sparc:pipeline     # Full pipeline with all steps
+npm run claude-flow        # Reinitialize Claude Flow topology
+```
+
+### For Team Distribution
+
+When sharing this template with others:
+1. Document any custom agents added to `.claude/agents/custom/`
+2. Document any new commands in `.claude/commands/custom/`
+3. Update memory namespaces in `.claude/settings.json` as needed
+4. Test locally before committing: all files in `.claude/`, `.swarm/`, `.hive-mind/` are versioned
+
+### Customization
+
+To add new capabilities:
+- Agents: Create `.md` files in `.claude/agents/` with agent definition format
+- Commands: Create `.md` files in `.claude/commands/` for slash command workflows
+- Skills: Create directories in `.claude/skills/` for reusable workflows
+- After adding: Restart Claude Code for auto-discovery
