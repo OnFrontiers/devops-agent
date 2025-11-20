@@ -183,3 +183,50 @@ Examples
 - `project = ENG AND (labels IS EMPTY OR labels NOT IN ("cost-reduction", "product-development"))` - All Engineering tickets
 - `labels = "product-development"` - All Product Development tickets
 - `project = ENG AND labels = cost-reduction` - All Operations Hub tickets (legacy cost-reduction label)
+
+## Notion Integration (Simple)
+
+1. Create an Internal Integration:
+   - https://www.notion.so/profile/integrations
+   - Click “New integration”, give it a name (e.g., enio-devops-agent), copy the Integration Secret.
+
+2. Define the integration’s scope (what content it can access):
+   - In the integration UI, select the teamspaces/pages to grant access, OR
+   - Open a Teamspace “Home” page → Share → add your integration → if available, enable “also share with subpages” to cascade.
+
+3. Configure environment variables:
+   - In `.env`:
+     ```
+     NOTION_API_KEY=your-integration-secret
+     # Optional convenience if you plan to create pages under a known parent:
+     # NOTION_PARENT_PAGE_ID=d61c8553-007d-4489-a7c3-f1d7af090e05
+     ```
+
+4. Verify access with curl:
+   - Replace `<pageId>` with a page ID you have access to (e.g., a Teamspace Home page ID).
+   ```bash
+   # Read page metadata
+   curl -sS -H "Authorization: Bearer $NOTION_API_KEY" -H "Notion-Version: 2022-06-28" \
+     https://api.notion.com/v1/pages/<pageId>
+
+   # Read page blocks (content)
+   curl -sS -H "Authorization: Bearer $NOTION_API_KEY" -H "Notion-Version: 2022-06-28" \
+     "https://api.notion.com/v1/blocks/<pageId>/children?page_size=10"
+
+   # Create a child page under a parent page
+   curl -sS -X POST -H "Authorization: Bearer $NOTION_API_KEY" -H "Notion-Version: 2022-06-28" -H "Content-Type: application/json" \
+     https://api.notion.com/v1/pages \
+     -d '{
+       "parent": { "page_id": "<pageId>" },
+       "properties": { "title": [{ "text": { "content": "DevOps Agent Access Test" } }] },
+       "children": [
+         { "object": "block", "type": "paragraph", "paragraph": {
+             "rich_text": [{ "type": "text", "text": { "content": "Hello from the API." } }]
+         }}
+       ]
+     }'
+   ```
+
+Notes:
+- Only `NOTION_API_KEY` is required. Scopes are managed in Notion’s integration UI.
+- Never commit secrets to version control.
