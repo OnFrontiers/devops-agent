@@ -11,12 +11,14 @@
     "sparc:run": "npx claude-flow@alpha sparc run",
     "sparc:tdd": "npx claude-flow@alpha sparc tdd",
     "sparc:pipeline": "npx claude-flow@alpha sparc pipeline",
-    "claude-flow": "npx claude-flow@alpha init --topology mesh --max-agents 8 --force && npx claude-flow@alpha memory init --namespace default && echo '✅ Claude Flow initialized!'"
+    "claude-flow": "npx claude-flow@alpha init --topology mesh --max-agents 8 --force && npx claude-flow@alpha memory init --namespace default && echo '✅ Claude Flow initialized!'",
+    "notion:test": "node src/notion/examples/createTestPage.js"
   },
   "keywords": ["jira", "automation", "api"],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@notionhq/client": "^2.2.14",
     "axios": "^1.6.0",
     "dotenv": "^16.3.0"
   },
