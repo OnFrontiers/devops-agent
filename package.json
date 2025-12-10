@@ -20,7 +20,8 @@
   "dependencies": {
     "@notionhq/client": "^2.2.14",
     "axios": "^1.6.0",
-    "dotenv": "^16.3.0"
+    "dotenv": "^16.3.0",
+    "stripe": "^17.4.0"
   },
   "devDependencies": {
     "claude-flow": "latest",

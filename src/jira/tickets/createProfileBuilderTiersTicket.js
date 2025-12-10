@@ -20,26 +20,11 @@ async function createProfileBuilderTiersTicket() {
               {
                 type: "text",
                 text: "Background",
-                marks: [{ type: "strong" }]
-              }
-            ]
-          },
-          {
-            type: "paragraph",
-            content: [
-              {
-                type: "text",
-                text: "Add tier functionality to profile builder for automatic tier suggestions based on expert profiles and project requirements."
-              }
-            ]
-          },
-          {
-            type: "paragraph",
-            content: [
-              {
-                type: "text",
-                text: "Technical Design",
-                marks: [{ type: "strong" }]
+                marks: [
+                  {
+                    type: "strong"
+                  }
+                ]
               }
             ]
           },
@@ -54,49 +39,7 @@ async function createProfileBuilderTiersTicket() {
                     content: [
                       {
                         type: "text",
-                        text: "Integrate tier definitions from notion document into OpenAI prompt"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                type: "listItem",
-                content: [
-                  {
-                    type: "paragraph",
-                    content: [
-                      {
-                        type: "text",
-                        text: "Implement automatic tier classification for profiles"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                type: "listItem",
-                content: [
-                  {
-                    type: "paragraph",
-                    content: [
-                      {
-                        type: "text",
-                        text: "Add tier selection UI to profile builder interface"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                type: "listItem",
-                content: [
-                  {
-                    type: "paragraph",
-                    content: [
-                      {
-                        type: "text",
-                        text: "Support 4 tier options as defined in requirements"
+                        text: "tba"
                       }
                     ]
                   }
@@ -110,13 +53,19 @@ async function createProfileBuilderTiersTicket() {
               {
                 type: "text",
                 text: "Acceptance Criteria",
-                marks: [{ type: "strong" }]
+                marks: [
+                  {
+                    type: "strong"
+                  }
+                ]
               }
             ]
           },
           {
             type: "orderedList",
-            attrs: { order: 1 },
+            attrs: {
+              order: 1
+            },
             content: [
               {
                 type: "listItem",
@@ -126,53 +75,34 @@ async function createProfileBuilderTiersTicket() {
                     content: [
                       {
                         type: "text",
-                        text: "OpenAI prompt includes tier definitions for classification"
+                        text: " "
                       }
                     ]
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            type: "paragraph",
+            content: [
               {
-                type: "listItem",
-                content: [
+                type: "text",
+                text: "Technical Design",
+                marks: [
                   {
-                    type: "paragraph",
-                    content: [
-                      {
-                        type: "text",
-                        text: "Profile builder suggests one of 4 available tiers automatically"
-                      }
-                    ]
+                    type: "strong"
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            type: "paragraph",
+            content: [
               {
-                type: "listItem",
-                content: [
-                  {
-                    type: "paragraph",
-                    content: [
-                      {
-                        type: "text",
-                        text: "Tier suggestions are contextually appropriate for expert profiles"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                type: "listItem",
-                content: [
-                  {
-                    type: "paragraph",
-                    content: [
-                      {
-                        type: "text",
-                        text: "Profile builder interface includes tier selection/edit functionality"
-                      }
-                    ]
-                  }
-                ]
+                type: "text",
+                text: "..."
               }
             ]
           }

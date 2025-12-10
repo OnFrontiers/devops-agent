@@ -230,3 +230,5 @@ Examples
 Notes:
 - Only `NOTION_API_KEY` is required. Scopes are managed in Notion’s integration UI.
 - Never commit secrets to version control.
+- **Node.js helpers available**: `src/notion/pages/updatePageTitle.js` can programatically update any accessible page title.
+- **Example usage**: `node src/notion/examples/updatePageTitle.js "page-id" "New Title"`
